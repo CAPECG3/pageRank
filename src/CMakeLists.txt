@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.5)
-set(APP_SRC main.cpp)
+set(APP_SRC main.cpp pageRank.cpp)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fpermissive -g")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-add_executable(crawler ${APP_SRC})
+add_executable(pageRank ${APP_SRC})
