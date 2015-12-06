@@ -14,7 +14,7 @@ int main() {
 	UrlNetwork urlNetwork;
 	urlNetwork.createMatrix(urlNode, urlEdge);
 	PageRank p(urlNetwork.matrix, urlNetwork.nodeIndex2URL);
-	p.start();
-	sleep(100);
+	std::ofstream rank("rank.txt");
+	p.start(rank);
 	return 0;
 }

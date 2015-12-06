@@ -4,7 +4,11 @@ PageRank::PageRank(std::array<std::unordered_map<int, double>, NODE_NUM> &_matri
 	matrix(_matrix), nodeIndex2URL(_nodeIndex2URL),
 	nodeNumber(_nodeIndex2URL.size()) {
 }
-void PageRank::start() {
+void PageRank::start(std::ofstream &rank) {
+	pageRank();
+	outTenURL(rank);
+}
+void PageRank::pageRank() {
 	std::vector<double> r0(nodeNumber);
 	std::vector<double> r1(nodeNumber);
 	for (size_t i = 0; i < nodeNumber; i++) {
@@ -24,7 +28,9 @@ void PageRank::start() {
 		}
 		itState = !itState;
 	} while (countItAccuracy(r0, r1) > e);
-
+	std::cout << "PageRank done" << std::endl;
+	if (itState) r = r0;
+	else r = r1;
 }
 double PageRank::countItAccuracy(const std::vector<double> &v1, const std::vector<double> &v2) {
 	double max = 0;
@@ -35,4 +41,13 @@ double PageRank::countItAccuracy(const std::vector<double> &v1, const std::vecto
 		}
 	}
 	return max;
+}
+void PageRank::outTenURL(std::ofstream &rank) {
+	for (size_t index = 0; index < r.size(); index++) {
+		q.push({r[index], index});
+	}
+	for (size_t i = 0; i < 10; i++) {
+		rank << q.top().first << " " << nodeIndex2URL[q.top().second] << std::endl;
+		q.pop();
+	}
 }

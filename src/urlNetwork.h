@@ -34,10 +34,12 @@ private:
 	void createEdge(std::ifstream &urlEdge) {
 		std::string row, col;
 		int rowIndex, colIndex;
+		int edgeNum = 0;
 		while (urlEdge >> col >> row) {
 			if (node.find(row) == node.end() || node.find(col) == node.end()) {
 				continue;
 			}
+			edgeNum++;
 			rowIndex = node[row];
 			colIndex = node[col];
 			if (matrix[rowIndex].find(colIndex) == matrix[rowIndex].end()) {
@@ -53,6 +55,7 @@ private:
 				linkNumByCol[colIndex]++;
 			}
 		}
+		std::cout << "edgeNum::" << edgeNum << std::endl;
 	}
 	void _createMatrix(std::ifstream &urlNode, std::ifstream &urlEdge) {
 		createNode(urlNode);
